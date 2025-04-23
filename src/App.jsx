@@ -1,31 +1,42 @@
-
-import React, { useState, useEffect } from 'react';
-import QuizList from './components/QuizList';
-import QuizPage from './components/QuizPage';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-const apiUrl = process.env.REACT_APP_API_URL;
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";  // Import Navbar
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import QuizList from "./components/QuizList";
+import Quiz from "./components/Quiz";
 
 function App() {
-  const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [quizId, setQuizId] = useState(null);
 
- 
+  // Check if the token is valid (ensure user remains logged in after refresh)
   useEffect(() => {
-    fetch(`${apiUrl}/api/some-route`)
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.error("Backend error:", err));
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoggedIn(true);
+    }
   }, []);
 
   return (
-    <div className="container mt-5">
-      <h1 className="mb-4">Multi Quiz System</h1>
-      {!selectedQuiz ? (
-        <QuizList onSelectQuiz={(quiz) => setSelectedQuiz(quiz)} />
-      ) : (
-        <QuizPage quiz={selectedQuiz} onBack={() => setSelectedQuiz(null)} />
-      )}
-    </div>
+    <Router>
+      <Navbar />  {/* Navbar visible on all pages */}
+      <Routes>
+        {/* Protected Routes */}
+        <Route
+          path="/"
+          element={loggedIn ? <QuizList onSelectQuiz={setQuizId} /> : <Login onLogin={() => setLoggedIn(true)} />}
+        />
+        <Route
+          path="/quiz/:id"
+          element={loggedIn ? <Quiz quizId={quizId} /> : <Login onLogin={() => setLoggedIn(true)} />}
+        />
+
+        {/* Public Routes */}
+        <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -1,33 +1,24 @@
+import React, { useEffect, useState } from "react";
+import API from "../api";
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
-function QuizList({ onSelectQuiz }) {
+export default function QuizList({ onSelectQuiz }) {
   const [quizzes, setQuizzes] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/quizzes')
-      .then(res => setQuizzes(res.data))
-      .catch(err => console.error(err));
+    API.get("/quizzes").then(res => setQuizzes(res.data));
   }, []);
 
   return (
-    <div>
-      <h3>Select a Quiz</h3>
+    <div className="container mt-4">
+      <h3>Available Quizzes</h3>
       <ul className="list-group">
-        {quizzes.map((quiz) => (
-          <li
-            key={quiz.id}
-            className="list-group-item list-group-item-action"
-            onClick={() => onSelectQuiz(quiz)}
-            style={{ cursor: 'pointer' }}
-          >
-            {quiz.title}
+        {quizzes.map(q => (
+          <li key={q.id} className="list-group-item d-flex justify-content-between align-items-center">
+            {q.title}
+            <button className="btn btn-outline-primary" onClick={() => onSelectQuiz(q.id)}>Start</button>
           </li>
         ))}
       </ul>
     </div>
   );
 }
-
-export default QuizList;
