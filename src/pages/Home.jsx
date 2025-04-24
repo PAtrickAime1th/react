@@ -9,7 +9,7 @@ function Home() {
             Login to test your knowledge. Simple. Smart. Bold.
           </p>
           <a
-            href="/login"
+            href="login"
             className="btn btn-dark btn-lg mt-4 animate__animated animate__zoomIn"
           >
             Start Quiz
@@ -17,7 +17,7 @@ function Home() {
         </div>
   
         <footer className="mt-auto mb-3 text-muted">
-          &copy; aimep2025 — Monochrome Mood 💭
+          &copy; 
         </footer>
       </div>
     );

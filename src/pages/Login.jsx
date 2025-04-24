@@ -69,7 +69,7 @@ function Login() {
         </div>
       )}
       <div className="mt-3 text-center">
-        <p>Don't have an account? <a href="/signup">Sign up here</a></p>
+        <p>Don't have an account? <a href="signup">Sign up here</a></p>
       </div>
     </div>
   );
