@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // useNavigate in React Router v6+
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [form, setForm] = useState({ username: '', password: '' });
   const [msg, setMsg] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();  // useNavigate in React Router v6+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,8 +19,11 @@ function Login() {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', form);
       localStorage.setItem('token', response.data.token);  // Store JWT token
-      setMsg('✅ Login successful!');
-      navigate('/dashboard');  // Redirect to dashboard or other page after login
+      setMsg('Login successful!');
+      navigate('/'); // Navigate first
+      setTimeout(() => {
+        window.location.reload(); // Reload the page after navigation
+      }, 100); // Small delay to ensure the route change processes
     } catch (err) {
       setMsg(err.response?.data?.error || '❌ Invalid credentials');
     } finally {

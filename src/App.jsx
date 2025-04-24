@@ -8,6 +8,7 @@ import QuizList from './pages/QuizList';
 import QuizPage from './pages/QuizPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
+
 function App() {
   return (
     <BrowserRouter>
