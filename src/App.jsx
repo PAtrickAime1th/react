@@ -1,42 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";  // Import Navbar
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import QuizList from "./components/QuizList";
-import Quiz from "./components/Quiz";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import QuizList from './pages/QuizList';
+import QuizPage from './pages/QuizPage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("token"));
-  const [quizId, setQuizId] = useState(null);
-
-  // Check if the token is valid (ensure user remains logged in after refresh)
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setLoggedIn(true);
-    }
-  }, []);
-
   return (
-    <Router>
-      <Navbar />  {/* Navbar visible on all pages */}
+    <BrowserRouter>
+      <Navbar />
       <Routes>
-        {/* Protected Routes */}
-        <Route
-          path="/"
-          element={loggedIn ? <QuizList onSelectQuiz={setQuizId} /> : <Login onLogin={() => setLoggedIn(true)} />}
-        />
-        <Route
-          path="/quiz/:id"
-          element={loggedIn ? <Quiz quizId={quizId} /> : <Login onLogin={() => setLoggedIn(true)} />}
-        />
-
-        {/* Public Routes */}
-        <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+
+        <Route
+          path="/quizzes"
+          element={
+            <ProtectedRoute>
+              <QuizList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/quizzes/:id"
+          element={
+            <ProtectedRoute>
+              <QuizPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
