@@ -8,7 +8,6 @@ import QuizList from './pages/QuizList';
 import QuizPage from './pages/QuizPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -35,6 +34,11 @@ function App() {
           }
         />
       </Routes>
+
+      {/* Footer with Copyright */}
+      <footer className="text-center mt-5 py-4">
+        <p>&copy; Aime P 2025</p>
+      </footer>
     </BrowserRouter>
   );
 }
