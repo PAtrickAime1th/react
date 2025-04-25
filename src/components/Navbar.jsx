@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
-  const token = localStorage.getItem('token');  // Check if the user is logged in
+  const token = localStorage.getItem('token');
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,10 +19,11 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto">
+          <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to="/home">Home</Link>
+              <Link className="nav-link" to="/">Home</Link>
             </li>
             {!token && (
               <>
@@ -30,7 +31,7 @@ function Navbar() {
                   <Link className="nav-link" to="/signup">Sign Up</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">Login</Link>
+                  <Link className="nav-link" to="/login">Login</Link>
                 </li>
               </>
             )}
@@ -42,9 +43,9 @@ function Navbar() {
                 <li className="nav-item">
                   <button
                     className="nav-link btn btn-link"
-                    onClick={() => { 
-                      localStorage.removeItem('token'); 
-                      window.location.href = '/login'; 
+                    onClick={() => {
+                      localStorage.removeItem('token');
+                      window.location.href = '/login';
                     }}
                   >
                     Logout
@@ -53,11 +54,6 @@ function Navbar() {
               </>
             )}
           </ul>
-          <div className="d-none d-lg-block ms-3">
-            <span className="navbar-text">
-              <strong>Support:</strong> +1 (234) 567-8901
-            </span>
-          </div>
         </div>
       </div>
     </nav>
