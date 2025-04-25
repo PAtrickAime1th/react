@@ -20,7 +20,7 @@ function Login() {
       const response = await axios.post('http://localhost:5000/api/auth/login', form);
       localStorage.setItem('token', response.data.token);  // Store JWT token
       setMsg('Login successful!');
-      navigate('/'); // Navigate first
+      navigate('/quizzes'); // Navigate first
       setTimeout(() => {
         window.location.reload(); // Reload the page after navigation
       }, 100); // Small delay to ensure the route change processes

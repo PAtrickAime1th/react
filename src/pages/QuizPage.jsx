@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
 
 function QuizPage() {
   const { id } = useParams();  // Get quiz ID from URL
+  const navigate = useNavigate(); // Initialize the useNavigate hook
   const [questions, setQuestions] = useState([]);  // Store questions
   const [answers, setAnswers] = useState({});  // Store user answers
   const [score, setScore] = useState(null);  // Store the score after submission
@@ -111,7 +112,7 @@ function QuizPage() {
             {/* Submit button */}
             <div className="text-center">
               <button className="btn btn-success" onClick={handleSubmit}>
-                 Submit Quiz
+                Submit Quiz
               </button>
             </div>
 
@@ -125,6 +126,13 @@ function QuizPage() {
             )}
           </>
         )}
+
+        {/* Back button */}
+        <div className="text-center mt-4">
+          <button className="btn btn-secondary" onClick={() => navigate(-1)}>
+            Back
+          </button>
+        </div>
       </div>
     </div>
   );
