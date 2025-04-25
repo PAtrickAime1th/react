@@ -20,9 +20,9 @@ function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link" to="/home">Home</Link>
             </li>
             {!token && (
               <>
@@ -30,7 +30,7 @@ function Navbar() {
                   <Link className="nav-link" to="/signup">Sign Up</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">Login</Link>
+                  <Link className="nav-link" to="/">Login</Link>
                 </li>
               </>
             )}
@@ -53,6 +53,11 @@ function Navbar() {
               </>
             )}
           </ul>
+          <div className="d-none d-lg-block ms-3">
+            <span className="navbar-text">
+              <strong>Support:</strong> +1 (234) 567-8901
+            </span>
+          </div>
         </div>
       </div>
     </nav>
