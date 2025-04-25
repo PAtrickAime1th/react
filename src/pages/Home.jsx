@@ -9,7 +9,7 @@ function Home() {
             Login to test your knowledge. Simple. Smart. Bold.
           </p>
           <a
-            href="/login"
+            href="login"
             className="btn btn-dark btn-lg mt-4 animate__animated animate__zoomIn"
           >
             Start Quiz
